@@ -14,22 +14,42 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("")
 @RestController
 @Slf4j
-public class ChatController{
+public class ChatController {
 
     private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
 
-    @MessageMapping("/chat.sendMessage")
-    @SendTo("/topic/public")
-    public ChatMessage sendMessage(ChatMessage chatMessage) {
-        log.info("Received message: {}", chatMessage.getContent());
+    @MessageMapping("/chat.sendMessage/{roomId}")
+    @SendTo("/topic/chat/{roomId}")
+    public ChatMessage sendMessage(@DestinationVariable String roomId, ChatMessage chatMessage) {
+        logger.info("Received message in room {}: {}", roomId, chatMessage.getContent());
         return chatMessage;
     }
 
-    @MessageMapping("/chat.addUser")
-    @SendTo("/topic/public")
-    public ChatMessage addUser(ChatMessage chatMessage) {
-        chatMessage.setContent("User " + chatMessage.getSender() + " has joined the chat");
-        log.info("User joined: {}", chatMessage.getSender());
+    @MessageMapping("/chat.addUser/{roomId}")
+    @SendTo("/topic/chat/{roomId}")
+    public ChatMessage addUser(@DestinationVariable String roomId, ChatMessage chatMessage) {
+        chatMessage.setContent("User " + chatMessage.getSender() + " has joined the chat in room " + roomId);
+        logger.info("User {} joined room {}", chatMessage.getSender(), roomId);
         return chatMessage;
     }
 }
+
+//public class ChatController{
+//
+//    private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
+//
+//    @MessageMapping("/chat.sendMessage")
+//    @SendTo("/topic/public")
+//    public ChatMessage sendMessage(ChatMessage chatMessage) {
+//        log.info("Received message: {}", chatMessage.getContent());
+//        return chatMessage;
+//    }
+//
+//    @MessageMapping("/chat.addUser")
+//    @SendTo("/topic/public")
+//    public ChatMessage addUser(ChatMessage chatMessage) {
+//        chatMessage.setContent("User " + chatMessage.getSender() + " has joined the chat");
+//        log.info("User joined: {}", chatMessage.getSender());
+//        return chatMessage;
+//    }
+//}

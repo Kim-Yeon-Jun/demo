@@ -25,31 +25,3 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 .withSockJS();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-//@Configuration
-//@EnableWebSocket
-//public class WebSocketConfig implements WebSocketConfigurer {
-//    private final ChatWebSocketHandler chatWebSocketHandler;
-//
-//    @Autowired
-//    public WebSocketConfig(ChatWebSocketHandler chatWebSocketHandler) {
-//        this.chatWebSocketHandler = chatWebSocketHandler;
-//    }
-//
-//    @Override
-//    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-//        registry.addHandler(chatWebSocketHandler, "/ws/chat")
-//                .setAllowedOrigins("http://localhost:3000")  // CORS 설정 허용
-//                .withSockJS();  // SockJS 사용
-//    }
-//}
