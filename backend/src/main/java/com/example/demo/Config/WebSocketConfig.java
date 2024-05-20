@@ -23,5 +23,10 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.addEndpoint("/ws/chat")
                 .setAllowedOrigins("http://localhost:3000")
                 .withSockJS();
+
+        // 위치 정보 엔드포인트
+        registry.addEndpoint("/ws/location")
+                .setAllowedOrigins("http://localhost:3000")
+                .withSockJS();
     }
 }
